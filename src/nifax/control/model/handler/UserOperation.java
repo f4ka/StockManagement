@@ -21,13 +21,13 @@ public class UserOperation extends ModelOperation implements IQueries{
     }
     
     public Object Login(String username, String password) throws InvalidCredentialsException{
-        Object obj =  Select(userLogin)
+        Object obj = null;
+        List<Object> list = Select(userLogin)
             .setParameter("username", username)
             .setParameter("password", password)
-            .list()
-            .get(0);
-        if(obj != null)
-            return obj;
+            .list();
+        if(!list.isEmpty())
+            return list.get(0);
         else
             throw new InvalidCredentialsException();
     }
